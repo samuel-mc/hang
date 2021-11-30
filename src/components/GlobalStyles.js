@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle `
         --orange: #fd6c22;
         --white: #ffffff;
     }
+    
     body {
         background-color: var(--primary-color);
     }
