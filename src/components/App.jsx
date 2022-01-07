@@ -1,14 +1,23 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+
 import GlobalStyles from './GlobalStyles';
 
-const App = () => {
+import CategoryModal from './CategoryModal';
+import PrincipalContainer from './PrincipalContainer';
+
+const App = (props) => {
+  const { categoriesReducer } = props;
+
   return (
-    <div>
-      <GlobalStyles>
-        <h1>Apoco no!</h1>
-      </GlobalStyles>
+    <div className="app">
+      <GlobalStyles />
+      {categoriesReducer.showModal ? <CategoryModal /> : <PrincipalContainer />}
     </div>
   );
 };
 
-export default App;
+const mapStateToProps = ({ categoriesReducer }) => ({ categoriesReducer });
+
+export default connect(mapStateToProps)(App);
