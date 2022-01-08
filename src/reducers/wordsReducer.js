@@ -59,6 +59,7 @@ const INITIAL_STATE = {
     },
   ],
   wordSelected: null,
+  wordArray: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -67,6 +68,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         wordSelected: action.payload,
+      };
+    case 'SET_WORD_ARRAY':
+      return {
+        ...state,
+        wordArray: action.payload,
       };
     case 'SET_RANDOM_LETTERS':
       return {

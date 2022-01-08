@@ -5,17 +5,19 @@ import { Board, LetterContainer } from './styles';
 
 const WordBoard = (props) => {
   const { wordsReducer } = props;
-  const { wordSelected } = wordsReducer;
-
-  console.log(wordSelected);
+  const { wordArray } = wordsReducer;
 
   return (
     <Board>
-      {wordSelected.map((letter) => (
-        <LetterContainer key={`${letter.letter}`}>
-          {letter.visible ? letter.letter : '_'}
-        </LetterContainer>
-      ))}
+      {wordArray ? (
+        wordArray.map((letter) => (
+          <LetterContainer key={`${letter.key}`}>
+            {letter.visible ? letter.letter : '_'}
+          </LetterContainer>
+        ))
+      ) : (
+        <h1>Cargando ...</h1>
+      )}
     </Board>
   );
 };

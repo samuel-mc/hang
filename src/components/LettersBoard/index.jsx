@@ -1,40 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Board, LetterContainer } from './styles';
-
+import useRandomLetters from '../../hooks/useRandomLetters';
 import * as wordsActions from '../../actions/wordsActions';
+import * as gameActions from '../../actions/gameActions';
 
 const LettersBoard = (props) => {
-  const { setRandomLetters, wordsReducer } = props;
-  const { letters, wordSelected, randomLetters } = wordsReducer;
-  const { word } = wordSelected;
-  const wordArray = word.split('');
-  const randomLettersAux = [];
+  const { wordsReducer, setRandomLetters, setWordArray, setMistakes } = props;
+  const { randomLetters, wordSelected, wordArray } = wordsReducer;
 
-  const handleRandomLetters = () => {
-    while (randomLettersAux.length < 15) {
-      const letter = letters[Math.floor(Math.random() * letters.length)];
-      if (!randomLettersAux.includes(letter)) {
-        randomLettersAux.push(letter);
-      }
-    }
-    for (let i = 0; i < wordArray.length; i++) {
-      if (!randomLettersAux.includes(wordArray[i])) {
-        randomLettersAux.push(wordArray[i]);
-      }
-    }
-    setRandomLetters(randomLettersAux);
-  };
+  const { chooseRandomLetters } = useRandomLetters(props);
 
   React.useEffect(() => {
-    console.log(props);
-    handleRandomLetters();
+    chooseRandomLetters();
   }, []);
 
   const handleSelection = (letter) => {
-    if (word.includes(letter)) {
-      console.log(word.toString().includes('a'));
+    const auxLetters = [...randomLetters];
+    const auxWord = [...wordArray];
+
+    auxLetters.splice(randomLetters.indexOf(letter), 1);
+    setRandomLetters(auxLetters);
+
+    if (wordSelected.includes(letter)) {
+      for (let i = 0; i < auxWord.length; i += 1) {
+        if (auxWord[i].letter === letter) {
+          auxWord[i].visible = auxWord[i].letter === letter && true;
+        }
+      }
+    } else {
+      setMistakes();
     }
+
+    setWordArray(auxWord);
   };
 
   return (
@@ -51,8 +49,12 @@ const LettersBoard = (props) => {
 
 const mapDispatchToProps = {
   ...wordsActions,
+  ...gameActions,
 };
 
-const mapStateToProps = ({ wordsReducer }) => ({ wordsReducer });
+const mapStateToProps = ({ wordsReducer, gameReducer }) => ({
+  wordsReducer,
+  gameReducer,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(LettersBoard);

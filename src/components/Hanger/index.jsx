@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import hangImage from '../../assets/hang.png';
 import {
   HangerContainer,
@@ -10,20 +11,27 @@ import {
   LeftLeg,
 } from './styles';
 
-const Hanger = () => {
+const Hanger = (props) => {
+  const { gameReducer } = props;
+  const { mistakes } = gameReducer;
+  console.log(mistakes);
+  // const
+
   return (
     <section>
       <HangerContainer>
         <img src={hangImage} alt="" />
-        <Head />
-        <Body />
-        <LeftHand />
-        <RightHand />
-        <LeftLeg />
-        <RightLeg />
+        {mistakes > 0 && <Head />}
+        {mistakes > 1 && <Body />}
+        {mistakes > 2 && <LeftHand />}
+        {mistakes > 3 && <RightHand />}
+        {mistakes > 4 && <LeftLeg />}
+        {mistakes > 5 && <RightLeg />}
       </HangerContainer>
     </section>
   );
 };
 
-export default Hanger;
+const mapStateToProps = ({ gameReducer }) => ({ gameReducer });
+
+export default connect(mapStateToProps)(Hanger);

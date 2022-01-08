@@ -1,4 +1,19 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const appear = keyframes`
+  0% {
+      opacity: 0;
+    transform: scale(0);
+  }
+  70% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
 
 const HangerContainer = styled.div`
   position: relative;
@@ -13,6 +28,7 @@ const Head = styled.div`
   top: 60px;
   right: 27px;
   width: 20px;
+  animation: ${appear} 2s ease-in-out;
 `;
 
 const Body = styled.div`
@@ -22,6 +38,7 @@ const Body = styled.div`
   position: absolute;
   top: 90px;
   width: 10px;
+  animation: ${appear} 2s ease-in-out;
 `;
 
 const LeftHand = styled.div`
@@ -32,6 +49,7 @@ const LeftHand = styled.div`
   position: absolute;
   transform: rotate(45deg);
   width: 10px;
+  animation: ${appear} 2s ease-in-out;
 `;
 
 const RightHand = styled.div`
@@ -42,6 +60,7 @@ const RightHand = styled.div`
   top: 102px;
   transform: rotate(-45deg);
   width: 10px;
+  animation: ${appear} 2s ease-in-out;
 `;
 
 const LeftLeg = styled.div`
@@ -52,6 +71,7 @@ const LeftLeg = styled.div`
   top: 131px;
   transform: rotate(45deg);
   width: 10px;
+  animation: ${appear} 2s ease-in-out;
 `;
 
 const RightLeg = styled.div`
@@ -62,6 +82,7 @@ const RightLeg = styled.div`
   top: 131px;
   transform: rotate(-45deg);
   width: 10px;
+  animation: ${appear} 2s ease-in-out;
 `;
 
 export { HangerContainer, Head, Body, LeftHand, RightHand, LeftLeg, RightLeg };
